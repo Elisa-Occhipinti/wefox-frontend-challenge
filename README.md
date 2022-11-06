@@ -1,1 +1,1 @@
-# wefox-tech-challenge
+# wefox-frontend-challenge
