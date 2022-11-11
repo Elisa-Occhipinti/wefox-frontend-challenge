@@ -19,7 +19,7 @@ export class PostsService {
   headers = new HttpHeaders().set('Content-Type', 'application/json');
 
   // List
-  getPostList() {
+  getPostList(): Observable<any> {
     return this.http.get(`${this.apiUrl}`);
   }
 

@@ -1,4 +1,4 @@
-export interface Post {
+export interface Post extends Object {
     title: string,
     content: string,
     lat: number,
