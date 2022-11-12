@@ -1,6 +1,17 @@
-<div class="row">
-    <div id="map" #map>
-        <div id="popup" #popup></div>
-    </div>
-    <div id="info"></div>
+<!--<div *ngIf="apiLoaded | async">
+    <google-map height="400px" width="750px" [center]="center" [zoom]="zoom" (mapClick)="addMarker($event)">
+        <map-marker #marker="mapMarker" *ngFor="let markerPosition of markerPositions" [position]="markerPosition"
+            (mapClick)="openInfoWindow(marker)"></map-marker>
+        <map-info-window></map-info-window>
+    </google-map>
+    <app-post-collection [posts]=posts></app-post-collection>
+</div>-->
+
+<div *ngIf="apiLoaded | async">
+    <google-map height="400px" width="750px" [center]="center" [zoom]="zoom">
+        <map-marker #marker="mapMarker" *ngFor="let markerPosition of markerPositions" [position]="markerPosition"
+            (mapClick)="openInfoWindow(marker)"></map-marker>
+        <map-info-window></map-info-window>
+    </google-map>
+    <app-post-collection [posts]=posts></app-post-collection>
 </div>

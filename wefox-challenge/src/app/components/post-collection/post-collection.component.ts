@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Post } from 'src/app/interfaces/post';
 import { PostsService } from 'src/app/services/posts.service';
 
@@ -13,18 +13,17 @@ export class PostCollectionComponent implements OnInit {
     private postService: PostsService
   ) { }
 
-  posts: Post[] = [];
-  hola: string = '';
+  @Input() posts: Post[] = [];
+  
 
   ngOnInit(): void {
-    this.hola = 'holaaaa'
-    this.postService.getPostList().subscribe(posts => {
+    /* this.postService.getPostList().subscribe(posts => {
       console.log('DATAA', posts);
       posts.forEach((post: Post) => {
         this.posts.push(post);
       });
       console.log('postssss', this.posts);
-    })
-  }
+    })*/
+  } 
 
 }
