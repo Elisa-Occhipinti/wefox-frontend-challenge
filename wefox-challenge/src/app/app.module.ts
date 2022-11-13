@@ -17,6 +17,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatInputModule } from '@angular/material/input';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+
 
 
 @NgModule({
@@ -25,7 +27,8 @@ import { MatInputModule } from '@angular/material/input';
     PostComponent,
     PostCollectionComponent,
     PopupComponent,
-    MapComponent
+    MapComponent,
+    DashboardComponent
   ],
   imports: [
     AppRoutingModule,

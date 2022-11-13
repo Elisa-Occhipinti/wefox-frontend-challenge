@@ -16,10 +16,9 @@ export class PopupComponent implements OnInit {
   content!: string;*/
   action!: string;
   post!: Post;
-  isEditAction: boolean = false;
+  isEditOrCreateAction: boolean = false;
 
   constructor(
-    private fb: FormBuilder,
     private dialogRef: MatDialogRef<PopupComponent>,
     @Inject(MAT_DIALOG_DATA) data: any) {
 
@@ -32,9 +31,12 @@ export class PopupComponent implements OnInit {
       image_url: data.image
     }*/
 
-    this.post = data.post;
+    if (data.post) {
+      this.post = data.post;
+    }
+
     this.action = data.action;
-    this.action === 'edit' ? this.isEditAction = true : this.isEditAction = false;
+    this.action === 'edit' || this.action === 'create' ? this.isEditOrCreateAction = true : this.isEditOrCreateAction = false;
     console.log('popup POST ', this.post)
     console.log('popup ACTION', this.action)
     this.form = new FormGroup({
@@ -49,9 +51,11 @@ export class PopupComponent implements OnInit {
 
   ngOnInit() {
     console.log(this.post)
-    this.form.get('title')?.setValue(this.post.title);
-    this.form.get('content')?.setValue(this.post.content);
-    this.form.get('image_url')?.setValue(this.post.image_url);
+    if (this.action === 'edit') {
+      this.form.get('title')?.setValue(this.post.title);
+      this.form.get('content')?.setValue(this.post.content);
+      this.form.get('image_url')?.setValue(this.post.image_url);
+    }
   }
 
   save() {
@@ -70,16 +74,23 @@ export class PopupComponent implements OnInit {
   }
 
   setData(): any {
-    if (this.action === 'edit') {
-      return {
-        form: this.form.value,
-        postId: this.post.id
-      };
-    }
-    if (this.action === 'delete') {
-      return {
-        postId: this.post.id
-      };
+    switch (this.action) {
+      case 'create': {
+        return {
+          form: this.form.value
+        };
+      }
+      case 'edit': {
+        return {
+          form: this.form.value,
+          postId: this.post.id
+        };
+      }
+      case 'delete': {
+        return {
+          postId: this.post.id
+        };
+      }
     }
   }
 

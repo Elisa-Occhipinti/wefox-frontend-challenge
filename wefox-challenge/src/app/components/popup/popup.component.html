@@ -1,28 +1,32 @@
-<ng-template [ngIf]="isEditAction" [ngIfElse]="deleteTemplate"><h2 mat-dialog-title>Edit "{{ post.title }}" post</h2>
+<ng-template [ngIf]="isEditOrCreateAction" [ngIfElse]="deleteTemplate">
+    <h2 mat-dialog-title *ngIf="post">Edit "{{ post.title }}" post</h2>
+    <h2 mat-dialog-title *ngIf="!post">Add a new post</h2>
 
-<mat-dialog-content [formGroup]="form" class="form">
-  
-    <mat-form-field class="full-width" appearance="fill">
-        <mat-label>Title</mat-label>
-        <input matInput formControlName="title">
-    </mat-form-field>
+    <mat-dialog-content [formGroup]="form" class="form">
 
-    <mat-form-field class="full-width" appearance="fill">
-        <mat-label>Content</mat-label>
-        <textarea matInput formControlName="content"></textarea>
-    </mat-form-field>
+        <mat-form-field class="full-width" appearance="fill">
+            <mat-label>Title</mat-label>
+            <input matInput formControlName="title">
+        </mat-form-field>
 
-    <mat-form-field class="full-width" appearance="fill">
-        <mat-label>Image</mat-label>
-        <textarea matInput formControlName="image_url"></textarea>
-    </mat-form-field>
- 
-</mat-dialog-content>
+        <mat-form-field class="full-width" appearance="fill">
+            <mat-label>Content</mat-label>
+            <textarea matInput formControlName="content"></textarea>
+        </mat-form-field>
+
+        <mat-form-field class="full-width" appearance="fill">
+            <mat-label>Image</mat-label>
+            <input matInput formControlName="image_url">
+        </mat-form-field>
+
+    </mat-dialog-content>
 </ng-template>
+
 <ng-template #deleteTemplate>
     <p>You are going to delete the <b>"{{ post.title }}"</b> post. Are you sure?</p>
 </ng-template>
+
 <mat-dialog-actions>
-    <button class="mat-raised-button"(click)="close()">Close</button>
-    <button class="mat-raised-button mat-primary"(click)="save()">Save</button>
+    <button class="mat-raised-button" (click)="close()">Close</button>
+    <button class="mat-raised-button mat-primary" (click)="save()">Save</button>
 </mat-dialog-actions>

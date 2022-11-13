@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Post } from 'src/app/interfaces/post';
 import { PostsService } from 'src/app/services/posts.service';
@@ -16,8 +16,10 @@ export class PostComponent implements OnInit {
   @Input() title: string = '';
   @Input() latitude: Number = 0.0;
   @Input() longitude: Number = 0.0;*/
-  @Input()
-  post!: Post;
+  @Input() post!: Post;
+  @Input() isCreateAction!: boolean;
+
+  @Output() closeInfoWindow = new EventEmitter<boolean>();
 
 
   constructor(private postService: PostsService,
@@ -28,10 +30,9 @@ export class PostComponent implements OnInit {
   }
 
   openPopup(post: Post, action: string) {
-    const dialogConfig = new MatDialogConfig();
 
-    //dialogConfig.disableClose = false;
-    //dialogConfig.autoFocus = true;
+    const dialogConfig = new MatDialogConfig();
+    this.closeInfoWindow.emit(true);
 
     dialogConfig.data = {
       post: {
@@ -41,7 +42,6 @@ export class PostComponent implements OnInit {
         image_url: post?.image_url
       },
       action: action
-
     };
 
     console.log('ACTION', action)

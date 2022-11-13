@@ -9,11 +9,12 @@
 
 <div id="map" *ngIf="apiLoaded | async">
     <google-map #map width="100%" height="100%" [options]="mapOptions">
-        <map-marker #marker="mapMarker" *ngFor="let markerPosition of markerPositions" [position]="markerPosition" [icon]="icon"
+        <map-marker #marker="mapMarker" *ngFor="let markerPosition of markerPositions" [position]="markerPosition"
             (mapClick)="openInfoWindow(marker)"></map-marker>
         <map-info-window>
-            <app-post *ngIf="post !== undefined" [post]="post"></app-post>
+            <app-post #postComponent *ngIf="post !== undefined" [post]="post" [isCreateAction]="isCreateAction" (closeInfoWindow)="closeInfoWindow($event)"></app-post>
         </map-info-window>
+        <app-dashboard></app-dashboard>
     </google-map>
-    <app-post-collection [posts]=posts></app-post-collection>
+    
 </div>

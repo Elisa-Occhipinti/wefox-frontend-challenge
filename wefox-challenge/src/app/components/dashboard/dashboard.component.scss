@@ -1,0 +1,17 @@
+.dashboard-card {
+    width: 400px;
+    border: 2px solid #3f51b5;
+    z-index: 1;
+    position: absolute;
+    left: 30px;
+    top: 30px;
+}
+
+#createPostButton {
+    border-radius: 3px;
+    border: 1px solid rgb(177, 177, 177);
+    margin-right: 10px;
+    margin-top: 5px;
+    width: 100px;
+    height: 40px;
+}

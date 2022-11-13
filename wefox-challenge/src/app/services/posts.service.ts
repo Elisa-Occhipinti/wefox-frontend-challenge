@@ -29,8 +29,7 @@ export class PostsService {
   }
 
   // Create
-  createPost(data: Post): Observable<any> {
-    //let url = `${this.apiUrl}/create-task`;
+  createPost(data: Partial<Post>): Observable<any> {
     return this.http.post(this.apiUrl, data).pipe(catchError(this.error));
   }
 

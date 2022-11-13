@@ -1,0 +1,16 @@
+<mat-card class="dashboard-card">
+    <mat-card-title>wefox Frontend Challenge</mat-card-title>
+    <mat-card-content>
+        <div [formGroup]="form" class="form">
+            <p>If you want to add a new marker with a post, search an address (or a city, a country, ...) in the
+                following field.</p>
+            <mat-form-field class="full-width" appearance="fill">
+                <mat-label>Search a place</mat-label>
+                <input #search matInput formControlName="search">
+            </mat-form-field>
+        </div>
+    </mat-card-content>
+    <mat-card-actions>
+        <button id="createPostButton" (click)="openPopup('create')" [disabled]="placeIsNotSelected">Add</button>
+    </mat-card-actions>
+</mat-card>

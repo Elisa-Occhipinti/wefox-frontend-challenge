@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 //@import '~@angular/material/prebuilt-themes/indigo-pink.css';
 
+
 html,
 body {
   height: 100%;
@@ -21,12 +22,22 @@ body {
   //text-align: center;
 }
 
-.mat-dialog-actions {
+mat-dialog-actions {
   display: block !important;
   text-align: right !important;
 }
 
-.mat-card-actions {
+mat-card-actions {
   display: block;
   text-align: right;
+}
+
+.form {
+  //min-width: 150px;
+  //max-width: 500px;
+  width: 100%;
+}
+
+.full-width {
+  width: 100%;
 }
