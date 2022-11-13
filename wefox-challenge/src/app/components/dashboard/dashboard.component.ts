@@ -84,7 +84,6 @@ export class DashboardComponent implements OnInit {
         }
         this.postService.createPost(post).subscribe(
           data => {
-            //let coordinates: google.maps.LatLngLiteral = { lat: Number(post.lat), lng: Number(post.long) };
             this.map.createOrUpdateMarkers();
           }
         );

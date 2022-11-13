@@ -68,14 +68,8 @@ export class MapComponent implements OnInit {
     this.postService.getPostList().subscribe(posts => {
       posts.forEach((post: Post) => {
         this.posts.push(post);
-        let coord;
-        /*if (coordinates === null || coordinates === undefined) {
-          coord = { lat: Number(post.lat), lng: Number(post.long) };
-          this.markerPositions.push(coord);
-        } else {*/
         let coordinates: google.maps.LatLngLiteral = { lat: Number(post.lat), lng: Number(post.long) };
           this.markerPositions.push(coordinates);
-        //}
       });
     })
   }
