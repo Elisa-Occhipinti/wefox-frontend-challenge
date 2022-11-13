@@ -1,4 +1,4 @@
-<mat-card class="example-card">
+<mat-card class="card">
   <mat-card-header>
     <mat-card-title *ngIf="post.title">{{ post.title }}</mat-card-title>
     <br>
@@ -8,7 +8,6 @@
   <mat-card-content *ngIf="post.content">
     <p>{{ post.content }}</p>
   </mat-card-content>
-  <mat-divider></mat-divider><br>
 
   <mat-card-actions>
     <button class="mat-raised-button" (click)="openPopup(post, 'edit')">Edit</button>
@@ -16,4 +15,3 @@
     </button>
   </mat-card-actions>
 </mat-card>
-<!--<ng-template><app-popup (newItemEvent)="managePost($event)"></app-popup></ng-template>-->

@@ -34,7 +34,7 @@ export class PostsService {
   }
 
   // Update
-  updatePost(id: number, data: any): Observable<any> {
+  updatePost(id: number, data: Partial<Post>): Observable<any> {
     let url = `${this.apiUrl}/${id}`;
     return this.http
       .put(url, data, { headers: this.headers })

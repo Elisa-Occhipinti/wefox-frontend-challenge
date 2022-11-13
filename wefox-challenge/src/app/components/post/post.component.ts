@@ -1,7 +1,9 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { Actions } from 'src/app/enums/actions';
 import { Post } from 'src/app/interfaces/post';
 import { PostsService } from 'src/app/services/posts.service';
+import { MapComponent } from '../map/map.component';
 import { PopupComponent } from '../popup/popup.component';
 
 @Component({
@@ -11,18 +13,13 @@ import { PopupComponent } from '../popup/popup.component';
 })
 export class PostComponent implements OnInit {
 
-  /*@Input() imageUrl: string = '';
-  @Input() content: string = '';
-  @Input() title: string = '';
-  @Input() latitude: Number = 0.0;
-  @Input() longitude: Number = 0.0;*/
   @Input() post!: Post;
   @Input() isCreateAction!: boolean;
 
   @Output() closeInfoWindow = new EventEmitter<boolean>();
 
-
-  constructor(private postService: PostsService,
+  constructor(@Inject(MapComponent) private map: MapComponent,
+    private postService: PostsService,
     private dialog: MatDialog) { }
 
   ngOnInit(): void {
@@ -44,8 +41,6 @@ export class PostComponent implements OnInit {
       action: action
     };
 
-    console.log('ACTION', action)
-
     dialogConfig.position = {
       top: '10%',
       left: '33%'
@@ -55,22 +50,26 @@ export class PostComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(
       data => {
-        if (action === 'edit' && data) {
+        if (action === Actions.EDIT && data) {
           this.updatePost(data);
         }
-        if (action === 'delete' && data) {
-          this.deletePost(data.postId);
+        if (action === Actions.DELETE && data) {
+          this.deletePost(data);
         }
       }
     );
   }
 
   updatePost(data: any) {
-    this.postService.updatePost(data.postId, data.form).subscribe();
+    this.postService.updatePost(data.post.id, data.form).subscribe(response => {
+      this.map.createOrUpdateMarkers();
+    });
   }
 
-  deletePost(postId: number) {
-    this.postService.deletePost(postId).subscribe();
+  deletePost(data: any) {
+    this.postService.deletePost(data.post.id).subscribe(response => {
+      this.map.createOrUpdateMarkers();
+    });
   }
 
 }

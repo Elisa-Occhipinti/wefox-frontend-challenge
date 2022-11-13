@@ -1,5 +1,4 @@
-import { coerceStringArray } from '@angular/cdk/coercion';
-import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Post } from 'src/app/interfaces/post';
@@ -39,12 +38,7 @@ export class DashboardComponent implements OnInit {
   ngAfterViewInit() {
 
     const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
-    /* {
-         componentRestrictions: { country: 'US' },
-         types: [this.adressType]  // 'establishment' / 'address' / 'geocode'
-     });*/
     google.maps.event.addListener(autocomplete, 'place_changed', () => {
-      console.log(this.form.controls["search"])
       const place = autocomplete.getPlace();
       if (place) {
         this.latitude = place.geometry?.location?.lat();
@@ -57,7 +51,6 @@ export class DashboardComponent implements OnInit {
 
   onChanges(): void {
     this.form.valueChanges.subscribe(val => {
-      console.log('vaaaaasal', val.search)
       if (!val.search) {
         this.placeIsNotSelected = true;
         this.cd.detectChanges();
@@ -82,21 +75,17 @@ export class DashboardComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(
       data => {
-
-        console.log('dataea', data)
-        console.log('dataea', data.form)
         const post: Partial<Post> = {
-          title: data.form.title,
-          content: data.form.content,
-          image_url: data.form.image_url,
+          title: data.form?.title,
+          content: data.form?.content,
+          image_url: data.form?.image_url,
           lat: this.latitude,
           long: this.longitude
         }
-        console.log(post)
         this.postService.createPost(post).subscribe(
-          resp => {
-            let coordinates: google.maps.LatLngLiteral = { lat: Number(post.lat), lng: Number(post.long) };
-            this.map.createMarkers(coordinates);
+          data => {
+            //let coordinates: google.maps.LatLngLiteral = { lat: Number(post.lat), lng: Number(post.long) };
+            this.map.createOrUpdateMarkers();
           }
         );
       }

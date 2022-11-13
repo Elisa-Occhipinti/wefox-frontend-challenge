@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Actions } from 'src/app/enums/actions';
 import { Post } from 'src/app/interfaces/post';
 
 @Component({
@@ -11,47 +12,32 @@ import { Post } from 'src/app/interfaces/post';
 export class PopupComponent implements OnInit {
 
   form!: FormGroup;
-  /*description!: string;
-  title!: string;
-  content!: string;*/
   action!: string;
   post!: Post;
   isEditOrCreateAction: boolean = false;
+  okButtonLabel: string = 'OK';
 
   constructor(
     private dialogRef: MatDialogRef<PopupComponent>,
     @Inject(MAT_DIALOG_DATA) data: any) {
-
-    /*this.post = {
-      id: data.id,
-      title: data.title,
-      content: data.content,
-      lat: data.lat,
-      long: data.long,
-      image_url: data.image
-    }*/
 
     if (data.post) {
       this.post = data.post;
     }
 
     this.action = data.action;
-    this.action === 'edit' || this.action === 'create' ? this.isEditOrCreateAction = true : this.isEditOrCreateAction = false;
-    console.log('popup POST ', this.post)
-    console.log('popup ACTION', this.action)
+    this.action === Actions.EDIT || this.action === Actions.CREATE ? this.isEditOrCreateAction = true : this.isEditOrCreateAction = false;
+    this.action === Actions.EDIT || this.action === Actions.CREATE ? this.okButtonLabel = 'Save' : this.okButtonLabel = 'Delete';
     this.form = new FormGroup({
-      title: new FormControl(),
-      content: new FormControl(),
+      title: new FormControl('', Validators.required),
+      content: new FormControl('', Validators.required),
       image_url: new FormControl()
     });
 
   }
 
-
-
   ngOnInit() {
-    console.log(this.post)
-    if (this.action === 'edit') {
+    if (this.action === Actions.EDIT) {
       this.form.get('title')?.setValue(this.post.title);
       this.form.get('content')?.setValue(this.post.content);
       this.form.get('image_url')?.setValue(this.post.image_url);
@@ -59,12 +45,6 @@ export class PopupComponent implements OnInit {
   }
 
   save() {
-    console.log('SAVE ACTION', this.action)
-    //this.newItemEvent.emit(this.action, this.post.id);
-    /*const value = {
-      form: this.form.value,
-      postId: this.post.id
-    };*/
     const value = this.setData();
     this.dialogRef.close(value);
   }
@@ -75,20 +55,20 @@ export class PopupComponent implements OnInit {
 
   setData(): any {
     switch (this.action) {
-      case 'create': {
+      case Actions.CREATE: {
         return {
           form: this.form.value
         };
       }
-      case 'edit': {
+      case Actions.EDIT: {
         return {
           form: this.form.value,
-          postId: this.post.id
+          post: this.post
         };
       }
-      case 'delete': {
+      case Actions.DELETE: {
         return {
-          postId: this.post.id
+          post: this.post
         };
       }
     }

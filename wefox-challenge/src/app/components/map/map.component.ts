@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
-import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MapInfoWindow, MapMarker } from '@angular/google-maps';
 import { catchError, map, Observable, of, tap } from 'rxjs';
 import { Post } from 'src/app/interfaces/post';
 import { PostsService } from 'src/app/services/posts.service';
-import { PostComponent } from '../post/post.component';
+
 
 @Component({
   selector: 'app-map',
@@ -18,16 +18,9 @@ export class MapComponent implements OnInit {
   post: any;
   @ViewChild(MapInfoWindow) infoWindow: MapInfoWindow | undefined;
   @ViewChild('map') map: any;
-  @ViewChild('postComponent')
-  postComponent!: any;
-  /*center: google.maps.LatLngLiteral = {
-    lat: 50.378472,
-    lng: 14.970598
-  };*/
-  icon = '../../assets/black-medium.png'
+  @ViewChild('postComponent') postComponent!: any;
+
   isCreateAction: boolean = false;
-
-
   markerPositions: google.maps.LatLngLiteral[] = [];
 
   mapOptions: google.maps.MapOptions = {
@@ -40,11 +33,6 @@ export class MapComponent implements OnInit {
     fullscreenControl: true,
     scaleControl: true,
     rotateControl: false,
-    mapTypeControlOptions: {
-      //mapTypeIds: ["roadmap", "satellite", "hybrid", "terrain", "styled_map"],
-      //style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
-      //position: google.maps.ControlPosition.TOP_CENTER,
-    },
     restriction: {
       latLngBounds: {
         north: 89,
@@ -70,35 +58,24 @@ export class MapComponent implements OnInit {
       );
   }
 
-
   ngOnInit(): void {
-    /*this.postService.getPostList().subscribe(posts => {
-      posts.forEach((post: Post) => {
-        this.posts.push(post);
-        let coordinates: google.maps.LatLngLiteral = { lat: Number(post.lat), lng: Number(post.long) };
-        this.markerPositions.push(coordinates);
-      });
-    })*/
-    this.createMarkers();
+    this.createOrUpdateMarkers();
   }
 
-  /*addMarker(event: google.maps.MapMouseEvent) {
-    if (event.latLng != null) 
-    {this.markerPositions.push(event.latLng.toJSON());}
-  }*/
-
-  createMarkers(coordinates?: any) {
+  createOrUpdateMarkers() {
+    this.posts.pop();
+    this.markerPositions.pop();
     this.postService.getPostList().subscribe(posts => {
       posts.forEach((post: Post) => {
         this.posts.push(post);
         let coord;
-        if(!coordinates){
-           coord = { lat: Number(post.lat), lng: Number(post.long) };
-           this.markerPositions.push(coord);
-        }else{
+        /*if (coordinates === null || coordinates === undefined) {
+          coord = { lat: Number(post.lat), lng: Number(post.long) };
+          this.markerPositions.push(coord);
+        } else {*/
+        let coordinates: google.maps.LatLngLiteral = { lat: Number(post.lat), lng: Number(post.long) };
           this.markerPositions.push(coordinates);
-        }
-       
+        //}
       });
     })
   }
@@ -117,8 +94,4 @@ export class MapComponent implements OnInit {
       this.infoWindow?.close();
     }
   }
-
-  /*setCreateActionInPost(event: boolean) {
-    this.isCreateAction = event;
-  }*/
 }

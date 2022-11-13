@@ -1,5 +1,5 @@
 .dashboard-card {
-    width: 400px;
+    max-width: 30%;
     border: 2px solid #3f51b5;
     z-index: 1;
     position: absolute;
@@ -7,9 +7,12 @@
     top: 30px;
 }
 
-#createPostButton {
+.disabled {
+    border: 1px solid rgb(177, 177, 177) !important;
+}
+
+.button {
     border-radius: 3px;
-    border: 1px solid rgb(177, 177, 177);
     margin-right: 10px;
     margin-top: 5px;
     width: 100px;

@@ -6,7 +6,6 @@ import {MatIconModule} from '@angular/material/icon';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PostComponent } from './components/post/post.component';
-import { PostCollectionComponent } from './components/post-collection/post-collection.component';
 import { PopupComponent } from './components/popup/popup.component';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { BrowserModule } from '@angular/platform-browser';
@@ -25,7 +24,6 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
   declarations: [
     AppComponent,
     PostComponent,
-    PostCollectionComponent,
     PopupComponent,
     MapComponent,
     DashboardComponent

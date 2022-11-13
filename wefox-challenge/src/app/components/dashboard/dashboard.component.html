@@ -11,6 +11,6 @@
         </div>
     </mat-card-content>
     <mat-card-actions>
-        <button id="createPostButton" (click)="openPopup('create')" [disabled]="placeIsNotSelected">Add</button>
+        <button class="button" [ngClass]="placeIsNotSelected ? 'disabled' : 'mat-raised-button mat-primary'" (click)="openPopup('create')" [disabled]="placeIsNotSelected">Add</button>
     </mat-card-actions>
 </mat-card>
