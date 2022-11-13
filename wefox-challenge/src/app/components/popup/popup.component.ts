@@ -16,6 +16,8 @@ export class PopupComponent implements OnInit {
   content!: string;*/
   action!: string;
   post!: Post;
+  isEditAction: boolean = false;
+
   constructor(
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<PopupComponent>,
@@ -32,7 +34,9 @@ export class PopupComponent implements OnInit {
 
     this.post = data.post;
     this.action = data.action;
-
+    this.action === 'edit' ? this.isEditAction = true : this.isEditAction = false;
+    console.log('popup POST ', this.post)
+    console.log('popup ACTION', this.action)
     this.form = new FormGroup({
       title: new FormControl(),
       content: new FormControl(),
@@ -51,12 +55,35 @@ export class PopupComponent implements OnInit {
   }
 
   save() {
-    this.dialogRef.close(this.form.value);
+    console.log('SAVE ACTION', this.action)
+    //this.newItemEvent.emit(this.action, this.post.id);
+    /*const value = {
+      form: this.form.value,
+      postId: this.post.id
+    };*/
+    const value = this.setData();
+    this.dialogRef.close(value);
   }
 
   close() {
     this.dialogRef.close();
   }
+
+  setData(): any {
+    if (this.action === 'edit') {
+      return {
+        form: this.form.value,
+        postId: this.post.id
+      };
+    }
+    if (this.action === 'delete') {
+      return {
+        postId: this.post.id
+      };
+    }
+  }
+
+
 
 }
 

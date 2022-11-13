@@ -21,7 +21,7 @@ export class MapComponent implements OnInit {
     lat: 50.378472,
     lng: 14.970598
   };*/
-
+  icon = '../../assets/black-medium.png'
 
 
   markerPositions: google.maps.LatLngLiteral[] = [];
@@ -38,11 +38,25 @@ export class MapComponent implements OnInit {
     mapTypeControlOptions: {
       mapTypeIds: ["roadmap", "satellite", "hybrid", "terrain", "styled_map"],
     },
+    restriction: {
+      latLngBounds: {
+        north: 89,
+        south: -89,
+        west: -179,
+        east: 179
+      },
+      strictBounds: true
+    },
     styles: [{
       featureType: 'all',
       elementType: 'all',
-      stylers: [{ saturation: -50 }],
-    }]
+      stylers: [{ saturation: -40 }, { hue: 20 }],
+    },
+    /*{
+      featureType: "landscape.natural",
+      elementType: "geometry",
+      stylers: [{ color: "#BDE39D" }],
+    },*/]
   };
 
 
@@ -197,6 +211,28 @@ export class MapComponent implements OnInit {
       let longitude = marker.getPosition()?.toJSON().lng;
       this.post = this.posts.find(p => (Number(p.lat) === latitude && Number(p.long) === longitude))
       this.infoWindow.open(marker);
+      if (this.mapOptions.styles && this.mapOptions.styles.length > 0) {
+        //this.mapOptions.styles[0]
+        let styles = {
+          featureType: 'all',
+          elementType: 'all',
+          stylers: [{ saturation: -90 }, { hue: 20 }],
+        };
+        
+        this.mapOptions.styles?.pop()
+        this.mapOptions.styles?.push(styles)
+
+        console.log(this.mapOptions.styles)
+
+        
+        
+      }
+
+     
+     
+
+     
+     
     }
   }
 }

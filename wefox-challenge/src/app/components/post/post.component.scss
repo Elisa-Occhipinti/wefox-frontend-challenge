@@ -1,22 +1,16 @@
 .example-card {
-    max-width: 400px;
-  }
-  
-  .example-header-image {
-    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
-    background-size: cover;
-  }
+    max-width: 100%;
+    border: none;
+    box-shadow: none;
+}
 
-  .example-label {
-    display: table-cell;
-    font-size: 14px;
-    margin-left: 8px;
-    min-width: 120px;
-  }
+.mat-icon {
+  margin-left: 10px;
+  margin-top: 5px;
+  text-align: center;
+}
+
   
-  .example-button-row {
-    display: table-cell;
-    width: 490px;
-  }
+
   
   

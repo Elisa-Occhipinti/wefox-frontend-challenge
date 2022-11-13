@@ -44,6 +44,8 @@ export class PostComponent implements OnInit {
 
     };
 
+    console.log('ACTION', action)
+
     dialogConfig.position = {
       top: '10%',
       left: '33%'
@@ -52,18 +54,23 @@ export class PostComponent implements OnInit {
     const dialogRef = this.dialog.open(PopupComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(
-      data => console.log("Dialog output:", data)
+      data => {
+        if (action === 'edit' && data) {
+          this.updatePost(data);
+        }
+        if (action === 'delete' && data) {
+          this.deletePost(data.postId);
+        }
+      }
     );
   }
 
-
-
-  updatePost(post: Post) {
-    //this.postService.updatePost(post.id, ).subscribe();
+  updatePost(data: any) {
+    this.postService.updatePost(data.postId, data.form).subscribe();
   }
 
-  deletePost() {
-
+  deletePost(postId: number) {
+    this.postService.deletePost(postId).subscribe();
   }
 
 }
