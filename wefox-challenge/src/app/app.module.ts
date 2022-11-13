@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { HttpClientJsonpModule, HttpClientModule } from '@angular/common/http';
 import {MatCardModule} from '@angular/material/card';
+import {MatIconModule} from '@angular/material/icon';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -10,6 +11,13 @@ import { PopupComponent } from './components/popup/popup.component';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { BrowserModule } from '@angular/platform-browser';
 import { MapComponent } from './components/map/map.component';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatInputModule } from '@angular/material/input';
+
 
 @NgModule({
   declarations: [
@@ -23,9 +31,17 @@ import { MapComponent } from './components/map/map.component';
     AppRoutingModule,
     HttpClientModule,
     MatCardModule,
+    MatIconModule,
     BrowserModule,
     GoogleMapsModule,
-    HttpClientJsonpModule
+    HttpClientJsonpModule,
+    MatDividerModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    FormsModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]

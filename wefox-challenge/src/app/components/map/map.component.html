@@ -7,11 +7,13 @@
     <app-post-collection [posts]=posts></app-post-collection>
 </div>-->
 
-<div *ngIf="apiLoaded | async">
-    <google-map height="400px" width="750px" [center]="center" [zoom]="zoom">
+<div id="map" *ngIf="apiLoaded | async">
+    <google-map #map width="100%" height="100%" [options]="mapOptions">
         <map-marker #marker="mapMarker" *ngFor="let markerPosition of markerPositions" [position]="markerPosition"
             (mapClick)="openInfoWindow(marker)"></map-marker>
-        <map-info-window></map-info-window>
+        <map-info-window>
+            <app-post *ngIf="post !== undefined" [post]="post"></app-post>
+        </map-info-window>
     </google-map>
     <app-post-collection [posts]=posts></app-post-collection>
 </div>
